@@ -33,7 +33,7 @@ function woocommerce_gateway_ceca_init() {
             $this->icon = '';
             $this->has_fields = false;
             $this->method_title = 'Pasarela CECABANK';
-            $this->method_description = 'Pasarela para pago con tarjetas de crédito.';
+            $this->method_description = 'Pasarela de pago para pago con tarjetas de crédito.';
 
             $this->init_form_fields();
             $this->init_settings();
@@ -259,26 +259,9 @@ function woocommerce_gateway_ceca_init() {
             }
 
             wc_enqueue_js( '
-                $.blockUI({
-                        message: "Gracias por su pedido, en unos segundos se le redigirá a la pasarela de pago CECABANK.",
-                        baseZ: 99999,
-                        overlayCSS:
-                        {
-                            background: "#fff",
-                            opacity: 0.6
-                        },
-                        css: {
-                            padding:        "20px",
-                            zindex:         "9999999",
-                            textAlign:      "center",
-                            color:          "#555",
-                            border:         "3px solid #aaa",
-                            backgroundColor:"#fff",
-                            cursor:         "wait",
-                            lineHeight:     "24px",
-                        }
-                    });
-                jQuery("#submit_ceca_payment_form").click();
+   if (alert ("Gracias por su pedido, recuerde que debe introducir la fecha de caducidad de su tarjeta en formato AAAAMM. Por ejemplo, si su tarjeta caduca en Julio de 2015, debera introducir 201507 como fecha de caducidad. Gracias.")){ ; 
+jQuery("#submit_ceca_payment_form").click();       
+}
             ' );
 
             return '<form action="' . esc_url( $this->ceca_url ) . '" method="post" id="ceca_payment_form" target="_top">
