@@ -4,7 +4,7 @@ Plugin Name: WooCommerce Ceca Gateway
 Plugin URI: http://woothemes.com/woocommerce
 Description: Extends WooCommerce with an Ceca gateway.
 Version: 1.0
-Author: juanmirod
+Author: juanmirod (modified by Jon Torrado)
 Author URI: http://juanmirodriguez.es/
  
 License: GNU General Public License v3.0
@@ -108,7 +108,7 @@ function woocommerce_gateway_ceca_init() {
             if ( $order ) {
                 update_post_meta( $order->id, 'REF', wc_clean( $posted['referencia'] ) );
             }
-            $order->payment_completed();
+            $order->payment_complete();
 
             wp_die( "$*$OKY$*$", "CECABANK", array( 'response' => 200 ) );
 
@@ -158,12 +158,12 @@ function woocommerce_gateway_ceca_init() {
                 'password' => array(
                     'title' => __('Clave de encriptación REAL'),
                     'type' => 'text',
-                    'description' => __('Facilitado por la caja, a diferencia de los demás paámetros la clave cambia del entorno de pruebas al entorno real.')
+                    'description' => __('Facilitado por la caja, a diferencia de los demás parámetros la clave cambia del entorno de pruebas al entorno real.')
                 ),
                 'password_debug' => array(
                     'title' => __('Clave de encriptación PRUEBAS'),
                     'type' => 'text',
-                    'description' => __('Facilitado por la caja, a diferencia de los demás paámetros la clave cambia del entorno de pruebas al entorno real.')
+                    'description' => __('Facilitado por la caja, a diferencia de los demás parámetros la clave cambia del entorno de pruebas al entorno real.')
                 ),
                 'currency' => array(
                     'title' => __('Tipo Moneda'),
