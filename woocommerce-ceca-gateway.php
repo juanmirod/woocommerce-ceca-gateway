@@ -4,7 +4,7 @@ Plugin Name: WooCommerce Ceca Gateway
 Plugin URI: http://woothemes.com/woocommerce
 Description: Extends WooCommerce with an Ceca gateway.
 Version: 1.0
-Author: juanmirod (modified by Jon Torrado)
+Author: juanmirod
 Author URI: http://juanmirodriguez.es/
  
 License: GNU General Public License v3.0
@@ -84,8 +84,7 @@ function woocommerce_gateway_ceca_init() {
                 do_action( "valid-ceca-standard-ipn-request", $response );
 
             } else {
-
-                wp_die( "CECABANK Request Failure", "CECABANK", array( 'response' => 200 ) );
+               	wp_die( "CECABANK Request Failure", "CECABANK", array( 'response' => 200 ) );
 
             }
 
@@ -95,22 +94,22 @@ function woocommerce_gateway_ceca_init() {
 
             $posted = stripslashes_deep( $posted );
 
-            $order_id   = $posted['num_operacion'];
+            $order_id   = $posted['Num_operacion'];
 
-            if(empty($posted['importe']) 
-               || empty( $posted['referencia'])
-               || empty( $posted['num_operacion']) ) {
+            if(empty($posted['Importe']) 
+               || empty( $posted['Referencia'])
+               || empty( $posted['Num_operacion']) ) {
                 wp_die( "ERROR", "CECABANK", array( 'response' => 200 ) );
             }
 
             // search for this order and store the $ref
             $order = new WC_Order($order_id);
             if ( $order ) {
-                update_post_meta( $order->id, 'REF', wc_clean( $posted['referencia'] ) );
+                update_post_meta( $order->id, 'REF', wc_clean( $posted['Referencia'] ) );
             }
             $order->payment_complete();
 
-            wp_die( "$*$OKY$*$", "CECABANK", array( 'response' => 200 ) );
+            wp_die( '$*$OKY$*$', "CECABANK", array( 'response' => 200 ) );
 
         }
 
@@ -258,17 +257,17 @@ function woocommerce_gateway_ceca_init() {
                 $ceca_args_array[] = '<input type="hidden" name="'.esc_attr( $key ) . '" value="' . esc_attr( $value ) . '" />';
             }
 
-            wc_enqueue_js( '
+       /*     wc_enqueue_js( '
    if (alert ("Gracias por su pedido, recuerde que debe introducir la fecha de caducidad de su tarjeta en formato AAAAMM. Por ejemplo, si su tarjeta caduca en Julio de 2015, debera introducir 201507 como fecha de caducidad. Gracias.")){ ; 
 jQuery("#submit_ceca_payment_form").click();       
 }
             ' );
-
+*/
             return '<form action="' . esc_url( $this->ceca_url ) . '" method="post" id="ceca_payment_form" target="_top">
                     ' . implode( '', $ceca_args_array ) . '
                     <!-- Button Fallback -->
                     <div class="payment_buttons">
-                        <input type="submit" class="button alt" id="submit_ceca_payment_form" value="' . __( 'Pagar con CECABANK' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce' ) . '</a>
+                        <input type="submit" class="button alt" id="submit_ceca_payment_form" value="' . __( 'Pagar' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce' ) . '</a>
                     </div>
                     <script type="text/javascript">
                         //jQuery(".payment_buttons").hide();
