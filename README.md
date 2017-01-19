@@ -2,6 +2,8 @@
 
 This plugin allow you to add a CECABANK gateway to your woocommerce store.
 
+UPDATED 19/01/2017: Fixed problem with URL_NOK thanks to contributions from [@grisendo](https://github.com/grisendo) and [@grabielmarma](https://twitter.com/gabrielmarma) I have confirmation that this works, although the woocommerce functions seems to be deprecated and you may need to use the new one in recent versions (https://docs.woocommerce.com/wc-apidocs/function-wc_get_page_id.html) Many thanks to the colaborators, you keep this repo useful for others!
+
 # INSTALLATION INSTRUCTIONS
 
 - Copy the plugin folder to wp-content/plugins/woocommerce-ceca-gateway
