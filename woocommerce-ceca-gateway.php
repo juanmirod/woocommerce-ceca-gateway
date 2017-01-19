@@ -80,12 +80,12 @@ function woocommerce_gateway_ceca_init() {
             if ( $response ) {
 
                 header( 'HTTP/1.1 200 OK' );
-
                 do_action( "valid-ceca-standard-ipn-request", $response );
 
             } else {
-               	wp_die( "CECABANK Request Failure", "CECABANK", array( 'response' => 200 ) );
 
+                wp_die( "CECABANK Request Failure", "CECABANK", array( 'response' => 200 ) );
+                
             }
 
         }
@@ -212,7 +212,7 @@ function woocommerce_gateway_ceca_init() {
                 .$this->currency
                 .'2SHA1'
                 .$this->get_return_url( $order )
-                .$this->get_return_url( $order );
+                .get_permalink( woocommerce_get_page_id( 'checkout' ) );
 
             return sha1($signature_str);
         }
@@ -224,7 +224,7 @@ function woocommerce_gateway_ceca_init() {
             $result['AcquirerBIN']      = $this->acquirer_bin;
             $result['TerminalID']       = $this->terminal_id;
             $result['URL_OK']           = $this->get_return_url( $order );
-            $result['URL_NOK']          = $this->get_return_url( $order );
+            $result['URL_NOK']          = get_permalink( woocommerce_get_page_id( 'checkout' ) );
             $result['Firma']            = $this->calculate_sign( $order );
             $result['Cifrado']          = 'SHA1';
             $result['Num_operacion']    = $order->id;
